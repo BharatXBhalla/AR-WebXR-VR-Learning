@@ -1,0 +1,35 @@
+three.js compactibility issue uses WEBGL
+
+Best experience in chrome 
+
+set canvas size in css
+
+scene us what user interact with 
+
+perspectiveCamera -- more deep smaller things and vica versa
+75 degress ratio of width and height  0.1 - near cliiping 100 far clipping plan 
+
+orthographicamera -- projecting on a paper as parallel
+
+renderer WE BGLRender add to dom 
+
+there is a up update function  
+
+for a shape we need a mesh and a material 
+
+controls let us nagivate a scene
+
+ligths :
+basic materials aren't affected by lights used
+
+lights require color and intensity 
+
+materials types: 
+
+1) Phong -- Shiny
+2) Blinn
+3) Lambert -- Matte Finish
+4) Constant -- like basic materials
+
+if lights are not added to scene then all materials which are 1)-3) do not show up 
+
