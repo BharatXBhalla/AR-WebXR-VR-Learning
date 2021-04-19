@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <style>
+            body{ margin:0;}
+            canvas {height: 100%; width: 100%;}
+       
+        </style>
+    </head>
+    <body>
+       
+    </body>
+   
+    <script src="js/three.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/OBJLoader.js"></script>
+    <script src="js/MTLLoader.js"></script>
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth,window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        //update viewport otherwise shape might be clipped and disorted
+        window.addEventListener('resize', function(){
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            renderer.setSize( width , height);
+            camera.aspect = width / height ;
+            //camera.updateProjectionMatrix();
+        });
+        controls = new THREE.OrbitControls(camera,renderer.domElement);
+
+
+        const mtlLoader = new THREE.MTLLoader();
+    mtlLoader.load('obj/living room.mtl', (mtl) => {
+      mtl.preload();
+      const objLoader = new THREE.OBJLoader();
+      objLoader.setMaterials(mtl);
+      objLoader.load('obj/living room.obj', (root) => {
+        scene.add(root);
+      });
+    },undefined,function(err){
+        console.log(err);
+    });
+
+    // const mtlLoader = new THREE.MTLLoader();
+    // mtlLoader.load('https://threejsfundamentals.org/threejs/resources/models/windmill/windmill.mtl', (mtl) => {
+    //   mtl.preload();
+    //   const objLoader = new THREE.OBJLoader();
+    //   objLoader.setMaterials(mtl);
+    //   objLoader.load('https://threejsfundamentals.org/threejs/resources/models/windmill/windmill.obj', (root) => {
+    //     scene.add(root);
+    //   });
+    // });
+
+
+        var ambientLight = new THREE.AmbientLight(0xFFFFFF,5);
+        scene.add(ambientLight);
+
+
+        camera.position.z=25;
+        camera.position.x=0;
+        camera.position.y=5;
+
+
+
+        //update 
+        var update = function(){
+
+        };
+
+        //draw Scene
+        var render = function () {
+            renderer.render(scene);
+        } 
+
+        //run game loop
+        var Gameloop = function () {
+            requestAnimationFrame(Gameloop);
+
+            update();
+            render();
+        }
+        Gameloop();
+
+    </script>
+
+    
+
+</html>
