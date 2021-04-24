@@ -15,6 +15,7 @@
     <script src="js/OBJLoader.js"></script>
     <script src="js/MTLLoader.js"></script>
     <script>
+        (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
 
@@ -28,32 +29,32 @@
             var height = window.innerHeight;
             renderer.setSize( width , height);
             camera.aspect = width / height ;
-            //camera.updateProjectionMatrix();
+            camera.updateProjectionMatrix();
         });
         controls = new THREE.OrbitControls(camera,renderer.domElement);
 
 
-        const mtlLoader = new THREE.MTLLoader();
-    mtlLoader.load('obj/living room.mtl', (mtl) => {
-      mtl.preload();
-      const objLoader = new THREE.OBJLoader();
-      objLoader.setMaterials(mtl);
-      objLoader.load('obj/living room.obj', (root) => {
-        scene.add(root);
-      });
-    },undefined,function(err){
-        console.log(err);
-    });
-
-    // const mtlLoader = new THREE.MTLLoader();
-    // mtlLoader.load('https://threejsfundamentals.org/threejs/resources/models/windmill/windmill.mtl', (mtl) => {
+    //     const mtlLoader = new THREE.MTLLoader();
+    // mtlLoader.load('obj/living room.mtl', (mtl) => {
     //   mtl.preload();
     //   const objLoader = new THREE.OBJLoader();
     //   objLoader.setMaterials(mtl);
-    //   objLoader.load('https://threejsfundamentals.org/threejs/resources/models/windmill/windmill.obj', (root) => {
+    //   objLoader.load('obj/living room.obj', (root) => {
     //     scene.add(root);
     //   });
+    // },undefined,function(err){
+    //     console.log(err);
     // });
+
+    const mtlLoader = new THREE.MTLLoader();
+    mtlLoader.load('https://threejsfundamentals.org/threejs/resources/models/windmill/windmill.mtl', (mtl) => {
+      mtl.preload();
+      const objLoader = new THREE.OBJLoader();
+      objLoader.setMaterials(mtl);
+      objLoader.load('https://threejsfundamentals.org/threejs/resources/models/windmill/windmill.obj', (root) => {
+        scene.add(root);
+      });
+    });
 
 
         var ambientLight = new THREE.AmbientLight(0xFFFFFF,5);
@@ -73,7 +74,7 @@
 
         //draw Scene
         var render = function () {
-            renderer.render(scene);
+            renderer.render(scene,camera);
         } 
 
         //run game loop
